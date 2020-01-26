@@ -1,51 +1,30 @@
 import React from 'react';
 import './App.css';
+import Header from './components/Header/Header';
+import Navbar from './components/Navbar/Navbar';
+import Profile from './components/Profile/Profile';
+import Dialogs from './components/Dialogs/Dialogs';
+import { Route, BrowserRouter } from 'react-router-dom';
+import News from './components/News/News';
+import Music from './components/Music/Music';
+import Settings from './components/Settings/Settings';
 
 
 const App = () => {
     return ( 
-    <div className = "app-wrapper"  >
-        <header className = 'header'>
-            <img src="" alt=""/>
-        </header>
-        <nav className ='nav'>
-            <div>
-                Profile
-            </div>
-            <div>
-                Messages
-            </div>
-            <div>
-                News
-            </div>
-            <div>
-                Music
-            </div>
-            <div>
-                Settings
-            </div>
-        </nav>
-        <div className = 'content'>
-            <div>
-                <img src="http://qnimate.com/wp-content/uploads/2014/03/images2.jpg" alt=""/>
-            </div>
-            <div>
-                avatar + description
-            </div>
-            <div>
-                my post
-                <div>
-                    new post
-                </div>
-                <div>
-                    post1
-                </div>
-                <div>
-                    post2
+        <BrowserRouter>
+            <div className = "app-wrapper" >
+                <Header />
+                <Navbar /> 
+                <div className='app-wrapper-content'>
+                    <Route path='/Dialogs' component={Dialogs} />
+                    <Route path='/Profile' component={Profile} />
+                    <Route path='/News' component={News} />
+                    <Route path='/Music' component={Music} />
+                    <Route path='/Settings' component={Settings} />
                 </div>
             </div>
-        </div>
-    </div>
+        </BrowserRouter>
     );
 }
 
