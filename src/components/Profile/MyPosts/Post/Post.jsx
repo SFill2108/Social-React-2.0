@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './Post.module.css'
+import s from './Post.module.css';
 
 const Post = (props) => {
     return(
@@ -7,7 +7,7 @@ const Post = (props) => {
                 <img src="https://cs7.pikabu.ru/post_img/big/2018/06/15/7/1529058241137066453.png" alt=""/>
                 {props.message}
                 <div>
-                    <span>like</span>
+                    <span>{props.likeCount}</span>
                 </div>
             </div>
             
