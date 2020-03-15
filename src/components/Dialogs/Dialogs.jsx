@@ -2,23 +2,23 @@ import React from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from './DialogsItem/DialogItem';
 import Message from './Message/Message';
-import { addMessageActionCreator, updateNewMessageTextActionCreator } from '../../Redux/state';
+import { updateNewMessageBodyCreator, sendMessageCreator } from '../../Redux/dialogs-reducer';
 
 
 const Dialogs = (props) => {
-    let dialogsElements = props.state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>);
-    let messagesElements = props.state.messages.map(m => <Message message={m.message}/>);
-
-    let newMessageElement = React.createRef();
-    let onMessageChange = () =>{
-        let text = newMessageElement.current.value;
-        let action = updateNewMessageTextActionCreator(text);
-        props.dispatch(action);
+    let state = props.store.getState().dialogsPage
+    
+    let dialogsElements =  state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>);
+    let messagesElements = state.messages.map(m => <Message message={m.message}/>);
+    debugger;
+    let newMessageBody = state.newMessageBody;
+    let onSendMassageClick = () =>{
+        props.store.dispatch(sendMessageCreator()); 
     }
-    let addMessage = () =>{
-        props.dispatch(addMessageActionCreator()); 
+    let onNewMessageChange = (e) =>{
+        let body = e.target.value;
+        props.store.dispatch(updateNewMessageBodyCreator(body))
     }
-
     return(
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
@@ -27,10 +27,10 @@ const Dialogs = (props) => {
                 </div>
             </div>
             <div className={s.messages}>
-                {messagesElements}
+                <div>{messagesElements}</div>
                 <div className={s.inputMessage} >
-                    <textarea onChange={onMessageChange} ref={newMessageElement} value = {props.newMessageText} />
-                    <button onClick={addMessage}>Send</button>
+                    <div><textarea onChange={onNewMessageChange} value = {newMessageBody} /></div>
+                    <div><button onClick={onSendMassageClick}>Send</button></div>
                 </div>
             </div>
         </div>

@@ -10,10 +10,12 @@ import {BrowserRouter} from 'react-router-dom';
 let rerenderEntireTree = (state) => {
     ReactDOM.render( 
     < BrowserRouter >
-        <App state = { state} dispatch = {store.dispatch.bind(store)}/>  
+        <App state = {state} dispatch = {store.dispatch.bind(store)} store = {store}/>  
     </BrowserRouter > , document.getElementById('root'));
     }
 rerenderEntireTree(store.getState());
+
+store.subscribe(rerenderEntireTree);
 
 
 
@@ -21,5 +23,3 @@ rerenderEntireTree(store.getState());
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
-
-store.subscribe(rerenderEntireTree); // callback в state.js во избежание зацикливания
